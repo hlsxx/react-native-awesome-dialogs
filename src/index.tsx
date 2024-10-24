@@ -1,49 +1,10 @@
 import { Component, createContext } from 'react';
 import { View, Modal, StyleSheet, Dimensions, Text, TouchableOpacity, Image } from 'react-native';
-
-import type { ReactNode } from 'react';
-import type { StyleProp, TextStyle } from 'react-native';
+import { DialogType, type DialogProps, type DialogShowProps, type DialogState, type DialogTypeParams } from './types';
+import { getIconImage } from './helpers/image';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const ALERT_WIDTH = SCREEN_WIDTH - (SCREEN_WIDTH / 4);
-
-enum DialogType {
-  Success,
-  Warning,
-  Error,
-  Info
-}
-
-interface DialogTypeParams {
-  icon: string;
-  color: string;
-}
-
-interface DialogProps {
-  children: ReactNode;
-};
-
-interface DialogState {
-  isVisible: boolean;
-  type: DialogType;
-};
-
-interface DialogShowProps {
-  title?: string;
-  text?: string;
-  icon?: string;
-  color?: string;
-  titleStyle?: StyleProp<TextStyle>,
-  textStyle?: StyleProp<TextStyle>,
-  onShow?: () => void;
-  onHide?: () => void;
-  button?: {
-    style?: StyleProp<TextStyle>,
-    text?: string;
-    onPress?: () => void;
-  }
-}
-
 const DialogContext = createContext<DialogState>({ isVisible: false, type: DialogType.Success });
 
 class Dialog {
@@ -108,8 +69,8 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
             <View style={styles.content}>
               <View style={[styles.iconCircle, { backgroundColor: params.color }]}>
                 <Image
-                  src={require('./assets/' + params.icon + '.png')}
-                  style={{ width: 20, height: 20 }}
+                  source={getIconImage(this.state.type)}
+                  style={{ width: '100%', height: '100%' }}
                 />
               </View>
 
