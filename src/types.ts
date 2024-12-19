@@ -5,7 +5,8 @@ export enum DialogType {
   Success,
   Warning,
   Error,
-  Info
+  Info,
+  Locked
 }
 
 export interface DialogTypeParams {

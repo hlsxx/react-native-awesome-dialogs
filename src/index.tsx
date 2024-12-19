@@ -12,6 +12,7 @@ class Dialog {
   public static warning(_props: DialogShowProps): void {}
   public static error(_props: DialogShowProps): void {}
   public static info(_props: DialogShowProps): void {}
+  public static locked(_props: DialogShowProps): void {}
 }
 
 class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
@@ -29,6 +30,7 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
     Dialog.warning = (props: DialogShowProps) => this._show(DialogType.Warning, props);
     Dialog.error = (props: DialogShowProps) => this._show(DialogType.Error, props);
     Dialog.info = (props: DialogShowProps) => this._show(DialogType.Info, props);
+    Dialog.locked = (props: DialogShowProps) => this._show(DialogType.Locked, props);
   }
 
   private _show(type: DialogType, props: DialogShowProps) {
@@ -48,6 +50,7 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
       case DialogType.Error: return { icon: "error", color: this.state.color ?? "#c74a4a" };
       case DialogType.Warning: return { icon: "alert", color: this.state.color ?? "#c7994a" };
       case DialogType.Info: return { icon: "info", color: this.state.color ?? "#4ac7bf" };
+      case DialogType.Locked: return { icon: "lock", color: this.state.color ?? "#bfbfbf" };
       default: return { icon: "success", color: this.state.color ?? "#99c74a" };
     }
   }
