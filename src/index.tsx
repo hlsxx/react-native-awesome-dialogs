@@ -1,14 +1,37 @@
-import type { DialogProps, DialogShowProps, DialogState,  DialogTypeParams } from './types';
-import { DialogType } from './types';
+import type { DialogProps, DialogShowProps, DialogState,  DialogTypeParams } from 'react-native-awesome-dialogs';
 
 import { Component, createContext } from 'react';
-import { View, Modal, StyleSheet, Dimensions, Text, TouchableOpacity, Image } from 'react-native';
-import { getIconImage } from './helpers/image';
+import { View, Modal, StyleSheet, Dimensions, Text, TouchableOpacity, Image, type ImageRequireSource } from 'react-native';
+
+/*
+ * Defined Dialog type
+ */
+export enum DialogType {
+  Success,
+  Warning,
+  Error,
+  Info,
+  Locked
+}
+
+/*
+ * Returns icon based on the DialogType
+ */
+const getIconImage = (type: DialogType): ImageRequireSource => {
+  switch (type) {
+    case DialogType.Info: return require("./assets/info.png");
+    case DialogType.Warning: return require("./assets/warning.png");
+    case DialogType.Error: return require("./assets/error.png");
+    case DialogType.Locked: return require("./assets/lock.png");
+    default: return require("./assets/success.png");
+  }
+}
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const ALERT_WIDTH = SCREEN_WIDTH - (SCREEN_WIDTH / 4);
 const DialogContext = createContext<DialogState>({ isVisible: false, type: DialogType.Success });
 
+// Default properties used for the state reset
 const DialogShowPropsDefault: DialogShowProps = {
   title: undefined,
   text: undefined,
