@@ -20,8 +20,8 @@ export default function App() {
               style={{ marginBottom: 5 }}
             >
               <Button
-                title={button.title}
-                onPress={() => button.onPress()}
+                title="Success"
+                onPress={() => Dialog.success({ title: "Successfully", text: "Successfully executed" })}
               />
             </View>
           ))}

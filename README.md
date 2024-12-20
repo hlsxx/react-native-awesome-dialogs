@@ -1,6 +1,8 @@
 # react-native-awesome-dialogs
 
-Awesome dialogs
+<div align="center">
+  <img src="https://github.com/hlsxx/react-native-awesome-dialogs/blob/master/blob/example.gif" alt="react-native-awesome-dialogs" style="width:100%; max-height:400px" />
+</div>
 
 ## Installation
 
@@ -12,22 +14,18 @@ npm install react-native-awesome-dialogs
 
 
 ```js
-import { multiply } from 'react-native-awesome-dialogs';
+import { Dialog, DialogRoot } from 'react-native-awesome-dialogs';
 
-// ...
-
-const result = await multiply(3, 7);
+<DialogRoot>
+  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <Button
+      title="Success"
+      onPress={() => Dialog.success({ title: "Successfully", text: "Successfully executed" })}
+    />
+  </View>
+</DialogRoot>
 ```
 
 
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
 ## License
-
 MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
