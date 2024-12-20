@@ -1,6 +1,8 @@
+import type { DialogProps, DialogShowProps, DialogState,  DialogTypeParams } from './types';
+import { DialogType } from './types';
+
 import { Component, createContext } from 'react';
 import { View, Modal, StyleSheet, Dimensions, Text, TouchableOpacity, Image } from 'react-native';
-import { DialogType, type DialogProps, type DialogShowProps, type DialogState, type DialogTypeParams } from './types';
 import { getIconImage } from './helpers/image';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -33,11 +35,22 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
     Dialog.locked = (props: DialogShowProps) => this._show(DialogType.Locked, props);
   }
 
+  /*
+   * On the modal request show
+   *
+   * Sets isVisible to true
+   */
   private _show(type: DialogType, props: DialogShowProps) {
     this.setState({ ...props, isVisible: true, type: type });
   }
 
-  private _onHide() {
+  /*
+   * On the modal request hide
+   *
+   * Sets isVisible to false
+   * Calls the callback if exists
+   */
+  private _hide() {
     const onHide = this.state.onHide;
 
     this.setState({ isVisible: false }, () => {
@@ -45,12 +58,15 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
     });
   }
 
+  /*
+   * Returns the Dialog params based on the DialogType
+   */
   private _getTypeParams(): DialogTypeParams {
     switch (this.state.type) {
       case DialogType.Error: return { icon: "error", color: this.state.color ?? "#c74a4a" };
-      case DialogType.Warning: return { icon: "alert", color: this.state.color ?? "#c7994a" };
-      case DialogType.Info: return { icon: "info", color: this.state.color ?? "#4ac7bf" };
-      case DialogType.Locked: return { icon: "lock", color: this.state.color ?? "#bfbfbf" };
+      case DialogType.Warning: return { icon: "warning", color: this.state.color ?? "#c7994a" };
+      case DialogType.Info: return { icon: "info", color: this.state.color ?? "#4a8fc7" };
+      case DialogType.Locked: return { icon: "lock", color: this.state.color ?? "#abb0ba" };
       default: return { icon: "success", color: this.state.color ?? "#99c74a" };
     }
   }
@@ -66,7 +82,7 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
           visible={this.state.isVisible}
           animationType="fade"
           transparent
-          onRequestClose={() => this._onHide()}
+          onRequestClose={() => this._hide()}
         >
           <View style={styles.container}>
             <View style={styles.content}>
@@ -81,7 +97,7 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
               <Text style={[styles.text, this.state.textStyle]}>{this.state.text}</Text>
 
               <TouchableOpacity
-                onPress={() => this._onHide()}
+                onPress={() => this._hide()}
                 style={[styles.btn, { backgroundColor: params.color }]}
               >
                 <Text style={[{ color: '#fff' }, this.state.button?.style]}>{this.state.button?.text ?? "OK"}</Text>
