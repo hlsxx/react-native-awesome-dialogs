@@ -1,6 +1,6 @@
 {
   "name": "react-native-awesome-dialogs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Awesome dialogs",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
