@@ -1,9 +1,10 @@
 import type { ImageRequireSource } from 'react-native';
 import { DialogType } from '../types';
 
+/*
+ * Returns icons for specific type
+ */
 export const getIconImage = (type: DialogType): ImageRequireSource => {
-
-    console.log(type);
   switch (type) {
     case DialogType.Info: return require("../assets/info.png");
     case DialogType.Warning: return require("../assets/warning.png");

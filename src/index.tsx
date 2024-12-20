@@ -9,6 +9,19 @@ const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const ALERT_WIDTH = SCREEN_WIDTH - (SCREEN_WIDTH / 4);
 const DialogContext = createContext<DialogState>({ isVisible: false, type: DialogType.Success });
 
+const DialogShowPropsDefault: DialogShowProps = {
+  title: undefined,
+  text: undefined,
+  icon: undefined,
+  color: undefined,
+  titleStyle: undefined,
+  textStyle: undefined,
+  onShow: undefined,
+  onHide: undefined,
+  style: undefined,
+  button: undefined
+}
+
 class Dialog {
   public static success(_props: DialogShowProps): void {}
   public static warning(_props: DialogShowProps): void {}
@@ -25,7 +38,7 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
 
     this.state = {
       isVisible: false,
-      type: DialogType.Success,
+      type: DialogType.Success
     };
 
     Dialog.success = (props: DialogShowProps) => this._show(DialogType.Success, props);
@@ -41,7 +54,7 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
    * Sets isVisible to true
    */
   private _show(type: DialogType, props: DialogShowProps) {
-    this.setState({ ...props, isVisible: true, type: type });
+    this.setState({ ...DialogShowPropsDefault, ...props, isVisible: true, type: type });
   }
 
   /*
@@ -62,12 +75,14 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
    * Returns the Dialog params based on the DialogType
    */
   private _getTypeParams(): DialogTypeParams {
+    const { color } = this.state;
+
     switch (this.state.type) {
-      case DialogType.Error: return { icon: "error", color: this.state.color ?? "#c74a4a" };
-      case DialogType.Warning: return { icon: "warning", color: this.state.color ?? "#c7994a" };
-      case DialogType.Info: return { icon: "info", color: this.state.color ?? "#4a8fc7" };
-      case DialogType.Locked: return { icon: "lock", color: this.state.color ?? "#abb0ba" };
-      default: return { icon: "success", color: this.state.color ?? "#99c74a" };
+      case DialogType.Error: return { icon: "error", color: color ?? "#c74a4a" };
+      case DialogType.Warning: return { icon: "warning", color: color ?? "#c7994a" };
+      case DialogType.Info: return { icon: "info", color: color ?? "#4a8fc7" };
+      case DialogType.Locked: return { icon: "lock", color: color ?? "#abb0ba" };
+      default: return { icon: "success", color: color ?? "#99c74a" };
     }
   }
 
@@ -85,7 +100,7 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
           onRequestClose={() => this._hide()}
         >
           <View style={styles.container}>
-            <View style={styles.content}>
+            <View style={[styles.content, this.state.style]}>
               <View style={[styles.iconCircle, { backgroundColor: params.color }]}>
                 <Image
                   source={getIconImage(this.state.type)}
@@ -98,9 +113,9 @@ class DialogRoot extends Component<DialogProps, DialogState & DialogShowProps> {
 
               <TouchableOpacity
                 onPress={() => this._hide()}
-                style={[styles.btn, { backgroundColor: params.color }]}
+                style={[styles.btn, { backgroundColor: params.color }, this.state.button?.style]}
               >
-                <Text style={[{ color: '#fff' }, this.state.button?.style]}>{this.state.button?.text ?? "OK"}</Text>
+                <Text style={[{ color: '#fff' }, this.state.button?.textStyle]}>{this.state.button?.text ?? "OK"}</Text>
               </TouchableOpacity>
             </View>
           </View>

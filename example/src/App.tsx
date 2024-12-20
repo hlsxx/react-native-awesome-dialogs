@@ -9,6 +9,33 @@ const BUTTONS = [
   { title: "Locked", onPress: () => Dialog.locked({ title: "Locked", text: "Locked action" })},
 ];
 
+const showCustomSuccess = () => {
+  Dialog.success({
+    title: "Successfully",
+    text: "Successfully executed",
+    onHide: () => console.log("On hide"),
+    onShow: () => console.log("On show"),
+    titleStyle: {
+      color: '#5c9614'
+    },
+    style: {
+      borderRadius: 5,
+      borderWidth: 3,
+      borderStyle: 'dashed',
+      borderColor: '#5c9614'
+    },
+    button: {
+      text: "X",
+      style: {
+        alignSelf: 'center',
+        borderRadius: 5,
+        backgroundColor: 'gray',
+        width: 40,
+      }
+    }
+  });
+};
+
 export default function App() {
   return (
     <DialogRoot>
@@ -20,11 +47,18 @@ export default function App() {
               style={{ marginBottom: 5 }}
             >
               <Button
-                title="Success"
-                onPress={() => Dialog.success({ title: "Successfully", text: "Successfully executed" })}
+                title={button.title}
+                onPress={() => button.onPress()}
               />
             </View>
           ))}
+        </View>
+
+        <View style={{ width: 175 }}>
+          <Button
+            title="Custom success"
+            onPress={() => showCustomSuccess()}
+          />
         </View>
       </View>
     </DialogRoot>

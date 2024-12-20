@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { StyleProp, TextStyle } from "react-native";
+import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 
 export enum DialogType {
   Success,
@@ -32,8 +32,10 @@ export interface DialogShowProps {
   textStyle?: StyleProp<TextStyle>,
   onShow?: () => void;
   onHide?: () => void;
+  style?: StyleProp<ViewStyle>,
   button?: {
-    style?: StyleProp<TextStyle>,
+    style?: StyleProp<ViewStyle>,
+    textStyle?: StyleProp<TextStyle>,
     text?: string;
     onPress?: () => void;
   }
