@@ -1,7 +1,7 @@
 # react-native-awesome-dialogs
 
 <div align="center">
-  <img src="https://github.com/hlsxx/react-native-awesome-dialogs/blob/master/blob/example.gif" alt="react-native-awesome-dialogs" style="width:100%; max-height:400px" />
+  <img src="https://github.com/hlsxx/react-native-awesome-dialogs/blob/master/blob/example.gif" alt="react-native-awesome-dialogs" style="width:100%; max-height:175px" />
 </div>
 
 ## Installation
