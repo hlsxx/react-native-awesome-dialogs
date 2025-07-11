@@ -15,6 +15,10 @@ const showCustomSuccess = () => {
     text: "Successfully executed",
     onHide: () => console.log("On hide"),
     onShow: () => console.log("On show"),
+    iconStyle: {
+      backgroundColor: 'red',
+      borderColor: 'red'
+    },
     titleStyle: {
       color: '#5c9614'
     },
@@ -22,7 +26,8 @@ const showCustomSuccess = () => {
       borderRadius: 5,
       borderWidth: 3,
       borderStyle: 'dashed',
-      borderColor: '#5c9614'
+      borderColor: '#5c9614',
+      backgroundColor: 'red',
     },
     button: {
       text: "X",
